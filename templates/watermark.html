@@ -1,0 +1,13 @@
+
+    <!doctype html>
+    <title>Загрузить новый файл</title>
+    <h1>Добавить водяной знак</h1>
+    {% for message in get_flashed_messages() %}
+	<p>{{ message }}</p>
+    {% endfor %}
+    <form method=post enctype=multipart/form-data>
+      Изображение: <input type=file name=file1>
+      Водяной знак: <input type=file name=file2>
+      <input type=submit value="Добавить">
+    </form>
+    </html>

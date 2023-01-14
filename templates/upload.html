@@ -1,0 +1,12 @@
+
+    <!doctype html>
+    <title>Загрузить новый файл</title>
+    <h1>Перевести фото в ЧБ</h1>
+    {% for message in get_flashed_messages() %}
+	<p>{{ message }}</p>
+    {% endfor %}
+    <form method=post enctype=multipart/form-data>
+      <input type=file name=file>
+      <input type=submit value="Загузить">
+    </form>
+    </html>

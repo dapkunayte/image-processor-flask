@@ -1,0 +1,17 @@
+    <!doctype html>
+    <title>Текст в изображение</title>
+    <h1>Перевести текст в изображение</h1>
+    {% for message in get_flashed_messages() %}
+	<p>{{ message }}</p>
+    {% endfor %}
+    <form method=post enctype=multipart/form-data>
+      <input type=text name="text">
+      <input type=submit value="Перевести">
+        <p>Цвет фона:
+      <input type="color" name="background_color"></input>
+        </p>
+        <p>Цвет текста:
+      <input type="color" name="text_color"></input>
+        </p>
+    </form>
+    </html>
