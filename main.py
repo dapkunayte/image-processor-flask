@@ -3,6 +3,7 @@ from flask import Flask, request, redirect, flash, render_template, send_from_di
 from werkzeug.utils import secure_filename
 from PIL import Image, ImageDraw, ImageFont
 from rembg.bg import remove
+from forms import TextToImageForm
 import io
 
 UPLOAD_FOLDER = 'imgs'
@@ -28,11 +29,31 @@ def black_and_white_dithering(input_image_path, output_image_path, dithering=Tru
     bw.save(output_image_path)
 
 
-def text_to_image_draw(output_image_path, input_text, background_color, text_color, text_size):
-    im = Image.new('RGB', (200, 200), color=background_color)
+def text_to_image_draw(output_image_path, input_text, background_color, text_color, text_size, image_size, position):
+    width, height = tuple(int(x) for x in image_size.split("x"))
+    im = Image.new('RGB', (width, height), color=background_color)
     font = ImageFont.truetype("times.ttf", size=int(text_size))
-    draw_text = ImageDraw.Draw(im)
-    draw_text.text((100, 100), input_text, fill=text_color, font=font)
+    draw = ImageDraw.Draw(im)
+    text_width, text_height = draw.textsize(input_text)
+    if position == "вверху слева":
+        text_position = (0, 0)
+    elif position == "по центру":
+        text_position = ((width-text_width)/2, (height-text_height)/2)
+    elif position == "слева":
+        text_position = (0, (height - text_height) / 2)
+    elif position == "вверху по центру":
+        text_position = ((width - text_width) / 2, 0)
+    elif position == "вверху справа":
+        text_position = ((width - text_width), 0)
+    elif position == "внизу справа":
+        text_position = ((width - text_width), (height - text_height))
+    elif position == "внизу слева":
+        text_position = (0, (height - text_height))
+    elif position == "справа":
+        text_position = ((width-text_width), (height-text_height)/2)
+    elif position == "внизу по центру":
+        text_position = (width-text_width)/2, (height-text_height)
+    draw.text(text_position, input_text, fill=text_color, font=font)
     im.save(output_image_path)
 
 
@@ -99,18 +120,21 @@ def upload_file():
 
 @app.route('/text_to_image', methods=['GET', 'POST'])
 def txt_to_img():
+    form = TextToImageForm()
     if request.method == "POST":
         text_data = request.form['text']
         background_color = request.form['background_color']
         text_color = request.form['text_color']
         text_size = request.form['text_size']
+        image_size = request.form['image_size']
+        position = request.form['position']
         filename = "image.png"
-        text_to_image_draw('imgs/'+filename, text_data, background_color, text_color, text_size)
+        text_to_image_draw('imgs/'+filename, text_data, background_color, text_color, text_size, image_size, position)
         return redirect(url_for('download_file', name=filename))
-    return render_template('text_to_image.html')
+    return render_template('text_to_image.html', form=form)
 
 
-@app.route('/img_watermark',methods=['GET', 'POST'])
+@app.route('/img_watermark', methods=['GET', 'POST'])
 def add_img_watermark():
     if request.method == 'POST':
         if 'file1' not in request.files or 'file2' not in request.files:
