@@ -1,13 +1,14 @@
+{%extends "index.html" %}
 
-    <!doctype html>
-    <title>Загрузить новый файл</title>
+{% block title %}Водяные знаки{% endblock %}
+{% block content %}
     <h1>Добавить водяной знак</h1>
     {% for message in get_flashed_messages() %}
 	<p>{{ message }}</p>
     {% endfor %}
     <form method=post enctype=multipart/form-data>
-      Изображение: <input type=file name=file1>
-      Водяной знак: <input type=file name=file2>
-      <input type=submit value="Добавить">
+      <p>Изображение: <input type=file name=file1></p>
+      <p>Водяной знак: <input type=file name=file2></p>
+      <p><input type=submit value="Добавить"></p>
     </form>
-    </html>
+{% endblock %}

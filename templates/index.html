@@ -2,11 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>All functions</title>
+    <title>{% block title %}Все функции{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 </head>
 <body>
+<div class="container-fluid">
+{% block content %}
 <p><a href="/black_and_white">Перевод изображений в ЧБ</a></p>
 <p><a href="/text_to_image">Текст в изображение</a></p>
 <p><a href="/img_watermark">Добавление водяных знаков</a></p>
+<p><a href="/remove_bg">Удаление фона</a></p>
+{% endblock %}
+</div>
 </body>
 </html>

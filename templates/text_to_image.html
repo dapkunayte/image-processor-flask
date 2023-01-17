@@ -1,17 +1,30 @@
-    <!doctype html>
-    <title>Текст в изображение</title>
+{%extends "index.html" %}
+
+{% block title %}Текст в изображение{% endblock %}
+{% block content %}
     <h1>Перевести текст в изображение</h1>
     {% for message in get_flashed_messages() %}
 	<p>{{ message }}</p>
     {% endfor %}
     <form method=post enctype=multipart/form-data>
-      <input type=text name="text">
-      <input type=submit value="Перевести">
+      <input type=text name="text" placeholder="Введите текст">
+      <input type=submit value="Получить изображение">
+        <h2>Настройки изображения</h2>
         <p>Цвет фона:
-      <input type="color" name="background_color"></input>
-        </p>
+            <input type="color" name="background_color"></p>
         <p>Цвет текста:
-      <input type="color" name="text_color"></input>
+            <input type="color" name="text_color"></p>
+        <p>Размер шрифта:
+        <select name="text_size">
+            <option>8</option>
+            <option>10</option>
+            <option>12</option>
+            <option>14</option>
+            <option>16</option>
+            <option>18</option>
+            <option>24</option>
+            <option>36</option>
+        </select>
         </p>
     </form>
-    </html>
+{% endblock %}

@@ -1,13 +1,14 @@
+
 {%extends "index.html" %}
 
-{% block title %}Перевод в ЧБ{% endblock %}
+{% block title %}Удаление фона{% endblock %}
 {% block content %}
-    <h1>Перевести фото в ЧБ</h1>
+    <h1>Удалить фон</h1>
     {% for message in get_flashed_messages() %}
 	<p>{{ message }}</p>
     {% endfor %}
     <form method=post enctype=multipart/form-data>
       <input type=file name=file>
-      <input type=submit value="Загузить">
+      <input type=submit value="Загрузить">
     </form>
 {% endblock %}
