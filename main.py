@@ -115,7 +115,7 @@ def upload_file():
         elif not(allowed_file(file.filename)):
             flash('Некорректное расширение файла. Доступны: .png, .jpeg, .jpg')
             return redirect(request.url)
-    return render_template('upload.html')
+    return render_template('to_black_white.html')
 
 
 @app.route('/text_to_image', methods=['GET', 'POST'])
@@ -203,4 +203,4 @@ def download_file(name):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
